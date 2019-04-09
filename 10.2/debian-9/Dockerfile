@@ -7,6 +7,9 @@ ENV BITNAMI_PKG_CHMOD="-R g+rwX" \
     OS_FLAVOUR="debian-9" \
     OS_NAME="linux"
 
+# Create mariadb user, which will be the default user
+RUN adduser --home / --no-create-home --uid 1001 --gecos "mariadb" --disabled-password --gid 0 mariadb
+
 # Install required system packages and dependencies
 RUN install_packages libaio1 libc6 libgcc1 libjemalloc1 libncurses5 libssl1.0.2 libstdc++6 libtinfo5 zlib1g
 RUN . ./libcomponent.sh && component_unpack "mariadb" "10.2.23-0" --checksum 967d847ab5dc513ef3b56337978866e7d876a4cb820e076ca3f4a81a8270289d

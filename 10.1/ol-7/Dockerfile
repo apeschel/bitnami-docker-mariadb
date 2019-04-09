@@ -7,6 +7,9 @@ ENV BITNAMI_PKG_CHMOD="-R g+rwX" \
     OS_FLAVOUR="ol-7" \
     OS_NAME="linux"
 
+# Create mariadb user, which will be the default user
+RUN adduser --comment "mariadb" --home-dir / --gid 0 --no-create-home --no-user-group --password '*' --uid 1001 mariadb
+
 # Install required system packages and dependencies
 RUN install_packages glibc keyutils-libs krb5-libs libaio libcom_err libgcc libselinux libstdc++ ncurses-libs nss-softokn-freebl openssl-libs pcre zlib
 RUN . ./libcomponent.sh && component_unpack "mariadb" "10.1.38-0" --checksum f5847c173605cfc41929b25ee7830d1f59a2b98ccf7142758c9e51d6bd9677bb
